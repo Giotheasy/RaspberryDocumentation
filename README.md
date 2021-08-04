@@ -145,7 +145,7 @@ Backup and modify the `fstab` file:
   sudo vim /etc/fstab
 ```
 
-Inside the `fstab` file add the hard drive UUID:
+Inside the `fstab` file add the hard drive UUID(replace the UUID):
 
 ```shell
   UUID=361E05831E053D7D /media/Seagate ntfs defaults 0 0
@@ -194,6 +194,7 @@ Modify
 # SAMBA Server Documentation
 
 ***
+Install SAMBA
 
 ```shell
   sudo apt-get update
@@ -221,6 +222,70 @@ Inside the configuration file:
 Then create an account for example:
 
 ```shell
-  sudo smbpasswd -a <user>
+  sudo smbpasswd -a pi
   sudo /etc/init.d/samba-restart
+```
+
+# MiniDLNA
+
+***
+
+## Installation
+
+Download and install:
+
+```shell
+  sudo apt-get install minidlna
+```
+
+Backup and modify the configuration file:
+
+```shell
+  sudo cp /etc/minidlna.conf /etc/minidlna.conf.old
+  sudo vim /etc/minidlna.conf
+```
+
+Inside the `minidlna.conf` select the audio and videos location. Also set a friendly name:
+
+```shell
+  media_dir=A,/media/Seagate/Multimedia/Musica
+  media_dir=V,/media/Seagate/Multimedia/Videos
+  
+  friendly_name=Raspberry DLNA
+```
+
+Finally restart the service:
+
+```shell
+  sudo service minidlna restart
+```
+
+## Database Restart
+
+To restart the MiniDLNA database:
+
+```shell
+  sudo minidlnad -R
+  sudo service minidlna restart
+```
+
+# Mumble Server
+
+***
+## Installation
+To install and init:
+```shell
+  sudo apt-get install mumble-server
+  sudo dpkg-reconfigure mumble-server
+```
+## Configuration
+Finally, edit the server configuration file:
+```shell
+  sudo vim /etc/mumble-server.ini
+  sudo /etc/init.d/mumble-server restart
+```
+## Manually Start Service
+ON CONSTRUCTION
+```shell
+    On Construction
 ```

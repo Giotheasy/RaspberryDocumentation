@@ -6,7 +6,7 @@
 
 ```shell
 sudo apt-get update
-sudo apt-get install vim
+sudo apt-get install git
 ```
 
 # VIM
@@ -337,6 +337,88 @@ c.NotebookApp.port = 8888
 c.NotebookApp.alow_remote_access = True
 ```
 
+## Start a notebook
+
+```shell
+jupyter notebook
+```
+
+# Docker
+
+***
+
+## Installation
+
+```shell
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+```
+
+## Basic Commands
+
+Pull images from the docker public repository
+
+```shell
+docker pull <image>
+```
+
+Create and run a container from an image. Modifier `-it` permit use all the host resources. Modifier `-d` starts the
+container detached (background).
+
+```shell
+docker run -it -d <image>
+```
+
+List the running containers
+
+```shell
+docker ps
+```
+
+Show all the running and exited containers
+
+```shell
+docker ps -a
+```
+
+Access to a running container
+
+```shell
+docker exec -it <container_id> bash
+```
+
+Stop a running container
+
+```shell
+docker stop <container_id>
+```
+
+Kill instantly a running container
+
+```shell
+docker kill <container_id>
+```
+
+Creates a new image of an edited container on the local system
+
+```shell
+docker commit <container_id>
+```
+
+Delete a stopped container
+
+```shell
+docker rm <container_id>
+```
+
+Delete an image from local storage
+```shell
+docker rmi <image_id>
+```
+Build an image from a specified docker file
+```shell
+docker build <path to docher file>
+```
 # Mumble Server
 
 ***

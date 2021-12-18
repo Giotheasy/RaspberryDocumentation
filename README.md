@@ -503,8 +503,6 @@ sudo /etc/init.d/mumble-server restart
 
 ON CONSTRUCTION
 
-```mermaid
-graph TD;
-A(START) --> B(Cheack Temperature);
-B-->C{Is the room hot?};
+```shell
+ON CONSTRUCTION
 ```

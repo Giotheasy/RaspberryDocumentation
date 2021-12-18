@@ -36,25 +36,32 @@ vim ~/.vimrc
 
 Set the configuration and save:
 
-```shell
-syntax enable
+```vim
+syntax on
 set number
 set background=dark
 set nocompatible
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
+set textwidth=79
+set autoindent
 set expandtab
 set foldmethod=indent
 set foldnestmax=10
 set nofoldenable
 set foldlevel=2
 set t_Co=256
+
+"set mouse=a
+
 filetype off
+
 set rtp+=~/.vim/bundle/Vundle.vim
 let g:filetype_pl="prolog"
+let python_highlight_all=1
 call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim' "Necesario
 Plugin 'vim-airline/vim-airline'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'scrooloose/nerdtree'
@@ -66,9 +73,12 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'gorodinskiy/vim-coloresque'
 Plugin 'mxw/vim-prolog'
+Plugin 'nvie/vim-flake8'
 call vundle#end()
 filetype plugin indent on
-colorscheme elflord
+
+colorscheme mohammad
+
 ```
 
 Once saved open vim and install the plugins:
@@ -149,6 +159,10 @@ Inside the `fstab` file add the hard drive UUID(replace the UUID):
 
 ```shell
 UUID=361E05831E053D7D /media/Seagate ntfs defaults 0 0
+```
+Or with the last ntfs-3g
+```shell
+UUID=361E05831E053D7D /media/Seagate ntfs-3g  auto,users,permissions 0 0
 ```
 
 # MariaDB Server Documentation
@@ -356,69 +370,113 @@ sudo sh get-docker.sh
 
 ## Basic Commands
 
-Pull images from the docker public repository
+#### Pull images from the docker public repository
 
 ```shell
 docker pull <image>
+# Example: pulling alpine image
+docker pull alpine
 ```
 
-Create and run a container from an image. Modifier `-it` permit use all the host resources. Modifier `-d` starts the
-container detached (background).
+#### Create and run a container from an image. Modifier `-it` permit use all the host resources. Modifier `-d` starts the container detached (background).
 
 ```shell
 docker run -it -d <image>
+# Example: running mariadb
+docker run -it -d mariadb
 ```
 
-List the running containers
+#### List the running containers
 
 ```shell
 docker ps
 ```
 
-Show all the running and exited containers
+#### Show all the running and exited containers
 
 ```shell
 docker ps -a
 ```
 
-Access to a running container
+#### Access to a running container
 
 ```shell
 docker exec -it <container_id> bash
 ```
 
-Stop a running container
+#### Stop a running container
 
 ```shell
 docker stop <container_id>
 ```
 
-Kill instantly a running container
+#### Kill instantly a running container
 
 ```shell
 docker kill <container_id>
 ```
 
-Creates a new image of an edited container on the local system
+#### Creates a new image of an edited container on the local system
 
 ```shell
 docker commit <container_id>
 ```
 
-Delete a stopped container
+#### Delete a stopped container
 
 ```shell
 docker rm <container_id>
 ```
 
-Delete an image from local storage
+#### Delete an image from local storage
+
 ```shell
 docker rmi <image_id>
 ```
-Build an image from a specified docker file
+
+#### Build an image from a specified docker file
+
 ```shell
 docker build <path to docher file>
 ```
+
+#### Run a container and give it a port on the local machine
+
+```shell
+docker run -d -p <local_port>:<container_port> <image_id>
+# Example: run a container detached where connects the local port 5000 to the container port 8000
+docker run -d -p 5000:8000 missingpets
+```
+
+## Dockerfile Example
+
+```dockerfile
+FROM alpine:latest
+RUN apk -U update \
+    && apk upgrade \
+    && apk add --no-cache python3-dev \
+    && apk add --no-cache --virtual build-deps gcc musl-dev \
+    && apk add --no-cache mariadb mariadb-dev mariadb-common mariadb-client \
+    && apk add --no-cache py3-pip \
+    && apk add --no-cache jpeg-dev zlib-dev libjpeg \
+    && python3 -m pip install --upgrade pip \
+    && mkdir "missingpets"
+COPY . /missingpets
+WORKDIR /missingpets
+
+RUN pip install -r requirements.txt
+EXPOSE 8000
+ENTRYPOINT ["./gunicorn_starter.sh"]
+```
+
+## .dockerignore Example
+```docker
+venv/
+env/
+.idea/
+.git/
+```
+
 # Mumble Server
 
 ***
@@ -445,6 +503,8 @@ sudo /etc/init.d/mumble-server restart
 
 ON CONSTRUCTION
 
-```shell
-ON CONSTRUCTION
+```mermaid
+graph TD;
+A(START) --> B(Cheack Temperature);
+B-->C{Is the room hot?};
 ```

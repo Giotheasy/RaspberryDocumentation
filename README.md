@@ -121,6 +121,127 @@ Then press `ctrl+y` and then `,`. The result will be the next:
 </ul>
 ```
 
+# NEOVIM
+***
+
+## Installation
+
+```shell
+sudo apt install neovim
+```
+
+## Configuration
+
+Make directory for Neovim config:
+
+```shell
+mkdir ~/.config/nvim
+```
+
+Create an `init.vim` file:
+```shell
+touch ~/.config/nvim/init.vim
+```
+
+Install vim-plug:
+
+```shell
+curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+```
+
+Create the configuration file 
+```shell
+mkdir ~/.config/nvim/vim-plug
+touch ~/.config/nvim/vim-plug/plugins.vim
+```
+Create the file for themes:
+```shell
+mkdir ~/.config/nvim/themes
+touch ~/.config/nvim/themes/onedark.vim
+```
+
+Edit the `onedark.vim` file:
+```vim
+" onedark.vim override: Don't set a background color when running in a terminal;
+if (has("autocmd") && !has("gui_running"))
+  augroup colorset
+    autocmd!
+    let s:white = { "gui": "#ABB2BF", "cterm": "145", "cterm16" : "7" }
+    autocmd ColorScheme * call onedark#set_highlight("Normal", { "fg": s:white }) " `bg` will not be styled since there is no `bg` setting
+  augroup END
+endif
+
+hi Comment cterm=italic
+let g:onedark_hide_endofbuffer=1
+let g:onedark_terminal_italics=1
+let g:onedark_termcolors=256
+
+syntax on
+colorscheme onedark
+
+
+" checks if your terminal has 24-bit color support
+if (has("termguicolors"))
+    set termguicolors
+    hi LineNr ctermbg=NONE guibg=NONE
+endif
+```
+Edit the `~/.config/nvim/vim-plug/plugins.vim` file:
+```vim
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  "autocmd VimEnter * PlugInstall
+  "autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
+
+call plug#begin('~/.config/nvim/autoload/plugged')
+
+    Plug 'sheerun/vim-polyglot'
+    Plug 'scrooloose/NERDTree'
+    Plug 'jiangmiao/auto-pairs'
+    Plug 'vim-airline/vim-airline'
+    Plug 'mattn/emmet-vim'
+    Plug 'YggDroot/indentLine'
+    Plug 'terryma/vim-multiple-cursors'
+    Plug 'joshdick/onedark.vim'
+    Plug 'airblade/vim-gitgutter'
+    Plug 'prettier/vim-prettier'
+
+call plug#end()
+```
+
+Edit the `~/.config/nvim/init.vim` file:
+```vim
+source $HOME/.config/nvim/vim-plug/plugins.vim
+source $HOME/.config/nvim/themes/onedark.vim
+
+syntax on
+set number
+set background=dark
+set nocompatible
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set textwidth=79
+set autoindent
+set expandtab
+set foldmethod=indent
+set foldnestmax=10
+set nofoldenable
+set foldlevel=2
+set mouse=a
+let g:filetype_pl="prolog"
+```
+
+Inside `nvim` execute
+```vim
+:PlugInstall
+```
+
+
+
+
 # Adding External Hard Drive
 
 ***
@@ -475,6 +596,19 @@ venv/
 env/
 .idea/
 .git/
+```
+
+## PostgreSQL over Docker
+```shell
+docker run --name db-postgres -p 5432:5432 -e POSTGRES_PASSWORD=<mysecretpassword> -d postgres
+
+# ... or more complete
+docker run --name db-postgres -p 5432:5432 -d -e POSTGRES_PASSWORD=<password> \
+ -e POSTGRES_USER=<username> \
+ -e POSTGRES_DB=<example> \
+ -v pgdata:/var/lib/postgresql/data \
+  postgres
+ 
 ```
 
 # Mumble Server

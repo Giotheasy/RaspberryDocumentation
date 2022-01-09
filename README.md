@@ -202,13 +202,14 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'jiangmiao/auto-pairs'
     Plug 'vim-airline/vim-airline'
     Plug 'mattn/emmet-vim'
-    Plug 'YggDroot/indentLine'
+    Plug 'Yggdroot/indentLine'
     Plug 'terryma/vim-multiple-cursors'
     Plug 'joshdick/onedark.vim'
     Plug 'airblade/vim-gitgutter'
-    Plug 'prettier/vim-prettier'
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
+
 ```
 
 Edit or create the `~/.config/nvim/init.vim` file:

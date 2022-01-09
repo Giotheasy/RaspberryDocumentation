@@ -211,11 +211,26 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 call plug#end()
 ```
 
-Edit the `~/.config/nvim/init.vim` file:
+Edit or create the `~/.config/nvim/init.vim` file:
 ```vim
 source $HOME/.config/nvim/vim-plug/plugins.vim
 source $HOME/.config/nvim/themes/onedark.vim
+source $HOME/.config/nvim/keymaps.vim
+source $HOME/.config/nvim/basic.vim
+```
+Edit or create the `~/.config/nvim/keymaps.vim`
 
+```vim
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+```
+
+Edit or create the `~/.config/nvim/basic.vim`
+
+```vim
 syntax on
 set number
 set background=dark
@@ -231,7 +246,13 @@ set foldnestmax=10
 set nofoldenable
 set foldlevel=2
 set mouse=a
+set relativenumber
+set splitbelow
+set splitright
+set clipboard=unnamedplus
+
 let g:filetype_pl="prolog"
+
 ```
 
 Inside `nvim` execute
@@ -610,6 +631,28 @@ docker run --name db-postgres -p 5432:5432 -d -e POSTGRES_PASSWORD=<password> \
   postgres
  
 ```
+
+# NodeJS RaspberryOS
+***
+
+## Enable the NodeSource Repository
+
+```shell
+sudo su
+curl -fsSL https://deb.nodesource.com/setup_17.x | bash -
+```
+
+## Installation
+
+```shell
+sudo apt install nodejs
+```
+Verify installation
+```shell
+node --version
+```
+
+
 
 # Mumble Server
 

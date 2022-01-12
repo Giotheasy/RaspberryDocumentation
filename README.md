@@ -261,9 +261,6 @@ Inside `nvim` execute
 :PlugInstall
 ```
 
-
-
-
 # Adding External Hard Drive
 
 ***
@@ -631,6 +628,27 @@ docker run --name db-postgres -p 5432:5432 -d -e POSTGRES_PASSWORD=<password> \
  -v pgdata:/var/lib/postgresql/data \
   postgres
  
+```
+
+## Docker-compose example with PostgreSQL
+
+```docker-compose
+version: "3.3"
+
+services:
+
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: <password>
+      POSTGRES_USER: <username>
+      POSTGRES_DB: <database_name>
+      DATABASE_HOST: 127.0.0.1
+    volumes:
+      - /localpath/local/postgres:/var/lib/postgresql/data
 ```
 
 # NodeJS RaspberryOS

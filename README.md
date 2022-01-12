@@ -632,7 +632,7 @@ docker run --name db-postgres -p 5432:5432 -d -e POSTGRES_PASSWORD=<password> \
 
 ## Docker-compose example with PostgreSQL
 
-```docker
+```yaml
 version: "3.3"
 
 services:

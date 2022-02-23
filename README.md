@@ -224,9 +224,16 @@ Edit or create the `~/.config/nvim/keymaps.vim`
 ```vim
 if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()
+  "Navigate buffers
+  nnoremap <silent><a-left> :bp<CR>
+  nnoremap <silent><a-right> :bn<CR>
+  "NERDTree
+  nnoremap <silent><a-up> :NERDTree<CR>
+  nnoremap <silent><a-down> >NERDTreeClose<CR>
 else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
+
 ```
 
 Edit or create the `~/.config/nvim/basic.vim`
@@ -721,6 +728,22 @@ font:
   size: 10
 ```
 
+# Node.js / React
+
+## Create a React project
+
+Verify the Node installation
+
+```shell
+node --version
+```
+
+Create the project folder and use the create command:
+```shell
+mkdir <projectname>
+cd <projectname>
+npx create-react-app .
+```
 
 # Mumble Server
 

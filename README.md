@@ -207,6 +207,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'joshdick/onedark.vim'
     Plug 'airblade/vim-gitgutter'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'kyazdani42/nvim-web-devicons'
+    Plug 'akinsho/bufferline.nvim'
 
 call plug#end()
 
@@ -218,6 +220,7 @@ source $HOME/.config/nvim/vim-plug/plugins.vim
 source $HOME/.config/nvim/themes/onedark.vim
 source $HOME/.config/nvim/keymaps.vim
 source $HOME/.config/nvim/basic.vim
+source $HOME/.config/nvim/themes/airline.vim
 ```
 Edit or create the `~/.config/nvim/keymaps.vim`
 
@@ -262,6 +265,31 @@ set clipboard=unnamedplus
 let g:filetype_pl="prolog"
 
 ```
+
+Edit or create `~/.config/nvim/themes/airline.vim`
+```vim
+" enable tabline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = ''
+let g:airline#extensions#tabline#right_sep = ''
+let g:airline#extensions#tabline#right_alt_sep = ''
+
+" enable powerline fonts
+let g:airline_powerline_fonts = 1
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+
+" Switch to your current theme
+let g:airline_theme = 'onedark'
+
+" Always show tabs
+set showtabline=2
+
+" We don't need to see things like -- INSERT -- anymore
+set noshowmode
+```
+
 
 Inside `nvim` execute
 ```vim

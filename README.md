@@ -9,6 +9,12 @@ sudo apt-get update
 sudo apt-get install git
 ```
 
+## Set remote origin with token
+
+```shell
+git remote set-url origin https://<githubtoken>@github.com/<username>/<repositoryname>.git
+```
+
 # VIM
 
 ***
@@ -104,24 +110,24 @@ ul>li*4>span>a
 Then press `ctrl+y` and then `,`. The result will be the next:
 
 ```html
-
 <ul>
-    <li>
-        <span><a href=""></a></span>
-    </li>
-    <li>
-        <span><a href=""></a></span>
-    </li>
-    <li>
-        <span><a href=""></a></span>
-    </li>
-    <li>
-        <span><a href=""></a></span>
-    </li>
+  <li>
+    <span><a href=""></a></span>
+  </li>
+  <li>
+    <span><a href=""></a></span>
+  </li>
+  <li>
+    <span><a href=""></a></span>
+  </li>
+  <li>
+    <span><a href=""></a></span>
+  </li>
 </ul>
 ```
 
 # NEOVIM
+
 ***
 
 ## Installation
@@ -139,6 +145,7 @@ mkdir ~/.config/nvim
 ```
 
 Create an `init.vim` file:
+
 ```shell
 touch ~/.config/nvim/init.vim
 ```
@@ -149,18 +156,22 @@ Install vim-plug:
 curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 
-Create the configuration file 
+Create the configuration file
+
 ```shell
 mkdir ~/.config/nvim/vim-plug
 touch ~/.config/nvim/vim-plug/plugins.vim
 ```
+
 Create the file for themes:
+
 ```shell
 mkdir ~/.config/nvim/themes
 touch ~/.config/nvim/themes/onedark.vim
 ```
 
 Edit the `onedark.vim` file:
+
 ```vim
 " onedark.vim override: Don't set a background color when running in a terminal;
 if (has("autocmd") && !has("gui_running"))
@@ -186,7 +197,9 @@ if (has("termguicolors"))
     hi LineNr ctermbg=NONE guibg=NONE
 endif
 ```
+
 Edit the `~/.config/nvim/vim-plug/plugins.vim` file:
+
 ```vim
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
@@ -208,13 +221,17 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'airblade/vim-gitgutter'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'kyazdani42/nvim-web-devicons'
+    Plug 'ryanoasis/vim-devicons'
     Plug 'akinsho/bufferline.nvim'
+    Plug 'frazrepo/vim-rainbow'
+    plug 'tpope/vim-fugitive'
 
 call plug#end()
 
 ```
 
 Edit or create the `~/.config/nvim/init.vim` file:
+
 ```vim
 source $HOME/.config/nvim/vim-plug/plugins.vim
 source $HOME/.config/nvim/themes/onedark.vim
@@ -222,6 +239,7 @@ source $HOME/.config/nvim/keymaps.vim
 source $HOME/.config/nvim/basic.vim
 source $HOME/.config/nvim/themes/airline.vim
 ```
+
 Edit or create the `~/.config/nvim/keymaps.vim`
 
 ```vim
@@ -233,6 +251,19 @@ if has('nvim')
   "NERDTree
   nnoremap <silent><a-up> :NERDTree<CR>
   nnoremap <silent><a-down> >NERDTreeClose<CR>
+
+  " use <tab> for trigger completion and navigate to the next complete item
+
+  function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1] =~ '\s'
+  endfunction
+
+  inoremap <silent><expr> <Tab>
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<Tab>" :
+    \ coc#refresh()
+
 else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
@@ -250,7 +281,7 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set textwidth=79
-set autoindent
+set autoindent smartindent
 set expandtab
 set foldmethod=indent
 set foldnestmax=10
@@ -263,10 +294,12 @@ set splitright
 set clipboard=unnamedplus
 
 let g:filetype_pl="prolog"
+let g:rainbow_active = 1
 
 ```
 
 Edit or create `~/.config/nvim/themes/airline.vim`
+
 ```vim
 " enable tabline
 let g:airline#extensions#tabline#enabled = 1
@@ -290,15 +323,15 @@ set showtabline=2
 set noshowmode
 ```
 
-
 Inside `nvim` execute
+
 ```vim
 :PlugInstall
 ```
 
 # Adding External Hard Drive
 
-***
+---
 
 ## Configuration
 
@@ -335,14 +368,16 @@ Inside the `fstab` file add the hard drive UUID(replace the UUID):
 ```shell
 UUID=361E05831E053D7D /media/Seagate ntfs defaults 0 0
 ```
+
 Or with the last ntfs-3g
+
 ```shell
 UUID=361E05831E053D7D /media/Seagate ntfs-3g  auto,users,permissions 0 0
 ```
 
 # MariaDB Server Documentation
 
-***
+---
 
 ## Instalation
 
@@ -383,6 +418,7 @@ datadir = /media/Seagate/mariadb
 # SAMBA Server Documentation
 
 ***
+
 Install SAMBA
 
 ```shell
@@ -398,10 +434,10 @@ Inside the configuration file:
 
 ```shell
 [Seagate]
-comment = USB Share 
+comment = USB Share
 path = /media/Seagate
 writeable = Yes
-create mask = 0777 
+create mask = 0777
 directory mask = 0777
 browseable = Yes
 valid users @users
@@ -439,7 +475,7 @@ Inside the `minidlna.conf` select the audio and videos location. Also set a frie
 ```shell
 media_dir=A,/media/Seagate/Multimedia/Musica
 media_dir=V,/media/Seagate/Multimedia/Videos
-  
+
 friendly_name=Raspberry DLNA
 ```
 
@@ -645,6 +681,7 @@ ENTRYPOINT ["./gunicorn_starter.sh"]
 ```
 
 ## .dockerignore Example
+
 ```docker
 venv/
 env/
@@ -653,6 +690,7 @@ env/
 ```
 
 ## PostgreSQL over Docker
+
 ```shell
 docker run --name db-postgres -p 5432:5432 -e POSTGRES_PASSWORD=<mysecretpassword> -d postgres
 
@@ -662,7 +700,7 @@ docker run --name db-postgres -p 5432:5432 -d -e POSTGRES_PASSWORD=<password> \
  -e POSTGRES_DB=<example> \
  -v pgdata:/var/lib/postgresql/data \
   postgres
- 
+
 ```
 
 ## Docker-compose example with PostgreSQL
@@ -671,7 +709,6 @@ docker run --name db-postgres -p 5432:5432 -d -e POSTGRES_PASSWORD=<password> \
 version: "3.3"
 
 services:
-
   postgres:
     image: postgres
     ports:
@@ -687,6 +724,7 @@ services:
 ```
 
 # NodeJS RaspberryOS
+
 ***
 
 ## Enable the NodeSource Repository
@@ -701,45 +739,48 @@ curl -fsSL https://deb.nodesource.com/setup_17.x | bash -
 ```shell
 sudo apt install nodejs
 ```
+
 Verify installation
+
 ```shell
 node --version
 ```
 
 # Alacritty config file
+
 ```yaml
 colors:
   # Default colors
   primary:
-    background: '0x292C3E'
-    foreground: '0xEBEBEB'
+    background: "0x292C3E"
+    foreground: "0xEBEBEB"
 
   # Cursor colors
   cursor:
-    text: '0xFF261E'
-    cursor: '0xFF261E'
+    text: "0xFF261E"
+    cursor: "0xFF261E"
 
   # Normal colors
   normal:
-    black:   '0x0d0d0d'
-    red:     '0xFF301B'
-    green:   '0xA0E521'
-    yellow:  '0xFFC620'
-    blue:    '0x1BA6FA'
-    magenta: '0x8763B8'
-    cyan:    '0x21DEEF'
-    white:   '0xEBEBEB'
+    black: "0x0d0d0d"
+    red: "0xFF301B"
+    green: "0xA0E521"
+    yellow: "0xFFC620"
+    blue: "0x1BA6FA"
+    magenta: "0x8763B8"
+    cyan: "0x21DEEF"
+    white: "0xEBEBEB"
 
   # Bright colors
   bright:
-    black:   '0x6D7070'
-    red:     '0xFF4352'
-    green:   '0xB8E466'
-    yellow:  '0xFFD750'
-    blue:    '0x1BA6FA'
-    magenta: '0xA578EA'
-    cyan:    '0x73FBF1'
-    white:   '0xFEFEF8'
+    black: "0x6D7070"
+    red: "0xFF4352"
+    green: "0xB8E466"
+    yellow: "0xFFD750"
+    blue: "0x1BA6FA"
+    magenta: "0xA578EA"
+    cyan: "0x73FBF1"
+    white: "0xFEFEF8"
 
 background_opacity: 0.8
 
@@ -767,6 +808,7 @@ node --version
 ```
 
 Create the project folder and use the create command:
+
 ```shell
 mkdir <projectname>
 cd <projectname>

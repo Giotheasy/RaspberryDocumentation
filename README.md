@@ -782,7 +782,8 @@ colors:
     cyan: "0x73FBF1"
     white: "0xFEFEF8"
 
-background_opacity: 0.8
+window:
+    opacity: 0.8
 
 cursor:
   style:
@@ -803,7 +804,7 @@ font:
 
 Verify the Node installation
 
-```shell
+```sh
 node --version
 ```
 

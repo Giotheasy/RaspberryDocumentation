@@ -224,7 +224,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'ryanoasis/vim-devicons'
     Plug 'akinsho/bufferline.nvim'
     Plug 'frazrepo/vim-rainbow'
-    plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
@@ -250,7 +250,7 @@ if has('nvim')
   nnoremap <silent><a-right> :bn<CR>
   "NERDTree
   nnoremap <silent><a-up> :NERDTree<CR>
-  nnoremap <silent><a-down> >NERDTreeClose<CR>
+  nnoremap <silent><a-down> :NERDTreeClose<CR>
 
   " use <tab> for trigger completion and navigate to the next complete item
 

@@ -1,6 +1,6 @@
 # GIT
 
-***
+---
 
 ## Installation
 
@@ -17,7 +17,7 @@ git remote set-url origin https://<githubtoken>@github.com/<username>/<repositor
 
 # VIM
 
-***
+---
 
 ## Installation
 
@@ -128,7 +128,7 @@ Then press `ctrl+y` and then `,`. The result will be the next:
 
 # NEOVIM
 
-***
+---
 
 ## Installation
 
@@ -417,7 +417,7 @@ datadir = /media/Seagate/mariadb
 
 # SAMBA Server Documentation
 
-***
+---
 
 Install SAMBA
 
@@ -453,7 +453,7 @@ sudo /etc/init.d/samba-restart
 
 # MiniDLNA
 
-***
+---
 
 ## Installation
 
@@ -496,7 +496,7 @@ sudo service minidlna restart
 
 # Jupyter Notebooks
 
-***
+---
 
 ## Installation
 
@@ -570,7 +570,7 @@ jupyter notebook
 
 # Docker
 
-***
+---
 
 ## Installation
 
@@ -723,53 +723,55 @@ services:
       - /localpath/local/postgres:/var/lib/postgresql/data
 ```
 
-
 ```yaml
 version: "3.8"
 services:
-    postgres:
-        container_name: database_postgresql
-        image: postgres:14.1-alpine
-        restart: always
-        environment:
-            - POSTGRES_USER=galo
-            - POSTGRES_PASSWORD=admin
-            - POSTGRES_DB=mibasegalo
-        ports:
-            - 5432:5432
-        volumes:
-            - ./db:/var/lib/postgresql/data
-    php:
-        build:
-            context: ./
-            dockerfile: Dockerfile
-        container_name: servidor-php
-        restart: always
-        ports:
-            - 8080:80
-        volumes:
-            - ./html:/var/www/html
-    django_app:
-        build:
-            context: ./
-            dockerfile: DockerfileDjango
-        container_name: webapp_django
-        restart: always
-        volumes:
-            - ./djangoapp:/application
-        ports:
-            - 5000:5000
-        command: python manage.py runserver 0.0.0.0:5000
+  postgres:
+    container_name: database_postgresql
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=galo
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=mibasegalo
+    ports:
+      - 5432:5432
+    volumes:
+      - ./db:/var/lib/postgresql/data
+  php:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: servidor-php
+    restart: always
+    ports:
+      - 8080:80
+    volumes:
+      - ./html:/var/www/html
+  django_app:
+    build:
+      context: ./
+      dockerfile: DockerfileDjango
+    container_name: webapp_django
+    restart: always
+    volumes:
+      - ./djangoapp:/application
+    ports:
+      - 5000:5000
+    command: python manage.py runserver 0.0.0.0:5000
 volumes:
-    html: {}
-    db: {}
-
+  html: {}
+  db: {}
 ```
 
 ### PHP service Dockerfile
 
 ```Dockerfile
-FROM php:7.2-apache
+FROM php:apache
+RUN apt-get update \
+    && apt-get install -y libpq-dev \
+    && docker-php-ext-install pdo pdo_pgsql pgsql \
+    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
 
 ```
 
@@ -784,10 +786,9 @@ COPY ./djangoapp/ /application/
 
 ```
 
-
 # NodeJS RaspberryOS
 
-***
+---
 
 ## Enable the NodeSource Repository
 
@@ -845,7 +846,7 @@ colors:
     white: "0xFEFEF8"
 
 window:
-    opacity: 0.8
+  opacity: 0.8
 
 cursor:
   style:
@@ -880,7 +881,7 @@ npx create-react-app .
 
 # Mumble Server
 
-***
+---
 
 ## Installation
 

@@ -734,8 +734,7 @@ services:
       - POSTGRES_USER=galo
       - POSTGRES_PASSWORD=admin
       - POSTGRES_DB=mibasegalo
-    ports:
-      - 5432:5432
+      - POSTGRES_HOST=localhost
     volumes:
       - ./db:/var/lib/postgresql/data
   php:

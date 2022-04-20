@@ -785,6 +785,77 @@ COPY ./djangoapp/ /application/
 
 ```
 
+#### To init the django project
+
+```sh
+docker-compose run <service-name> <command>
+```
+
+Example:
+
+```sh
+docker-compose run django_app django-admin startproject application .
+```
+
+or
+
+```sh
+docker-compose run django_app python manage.py startapp blog
+```
+
+### SQL Server docker-compose example
+
+```yaml
+version: "3.8"
+services:
+  sql-server:
+    container_name: sql-server
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    restart: always
+    ports:
+      - 1433:1433
+    environment:
+      - SA_PASSWORD=very_long_password
+      - ACCEPT_EULA=Y
+```
+
+### CodeIgniter docker-compose and Dockerfile example
+
+#### docker-compose example
+
+```yaml
+version: "3.8"
+services:
+  codeigniter:
+    build:
+      context: ./
+      dockerfile: DockerfileCodeigniter
+    container_name: codeigniter
+    restart: always
+    ports:
+      - 5050:80
+    volumes:
+      - ./html2:/var/www/html
+```
+
+#### DockerfileCodeigniter
+
+```Dockerfile
+FROM php:8.0-apache
+RUN apt-get update
+RUN apt-get install -y
+RUN apt-get install -y curl
+RUN apt-get install -y build-essential libssl-dev zlib1g-dev libpng-dev libjpeg-dev libfreetype6-dev
+RUN apt-get install -y libicu-dev
+RUN apt-get update
+RUN docker-php-ext-install intl
+RUN docker-php-ext-configure intl
+RUN apt-get install -y libpq-dev
+RUN docker-php-ext-install pdo pdo_pgsql pgsql
+RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
+RUN service apache2 restart
+```
+
 # NodeJS RaspberryOS
 
 ---

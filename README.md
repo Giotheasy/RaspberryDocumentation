@@ -856,6 +856,15 @@ RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
 RUN service apache2 restart
 ```
 
+#### Codeigniter extra permissions
+
+Common issues are related with the system permissions:
+
+```sh
+sudo chown -R $USER <development_path>
+sudo chmod 777 -R <development_path>
+```
+
 # NodeJS RaspberryOS
 
 ---

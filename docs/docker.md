@@ -4,7 +4,7 @@
 
 ## Installation
 
-```shell
+```sh
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 ```
@@ -13,7 +13,7 @@ sudo sh get-docker.sh
 
 #### Pull images from the docker public repository
 
-```shell
+```sh
 docker pull <image>
 # Example: pulling alpine image
 docker pull alpine
@@ -21,7 +21,7 @@ docker pull alpine
 
 #### Create and run a container from an image. Modifier `-it` permit use all the host resources. Modifier `-d` starts the container detached (background).
 
-```shell
+```sh
 docker run -it -d <image>
 # Example: running mariadb
 docker run -it -d mariadb
@@ -29,61 +29,61 @@ docker run -it -d mariadb
 
 #### List the running containers
 
-```shell
+```sh
 docker ps
 ```
 
 #### Show all the running and exited containers
 
-```shell
+```sh
 docker ps -a
 ```
 
 #### Access to a running container
 
-```shell
+```sh
 docker exec -it <container_id> bash
 ```
 
 #### Stop a running container
 
-```shell
+```sh
 docker stop <container_id>
 ```
 
 #### Kill instantly a running container
 
-```shell
+```sh
 docker kill <container_id>
 ```
 
 #### Creates a new image of an edited container on the local system
 
-```shell
+```sh
 docker commit <container_id>
 ```
 
 #### Delete a stopped container
 
-```shell
+```sh
 docker rm <container_id>
 ```
 
 #### Delete an image from local storage
 
-```shell
+```sh
 docker rmi <image_id>
 ```
 
 #### Build an image from a specified docker file
 
-```shell
+```sh
 docker build <path to docher file>
 ```
 
 #### Run a container and give it a port on the local machine
 
-```shell
+```sh
 docker run -d -p <local_port>:<container_port> <image_id>
 # Example: run a container detached where connects the local port 5000 to the container port 8000
 docker run -d -p 5000:8000 missingpets
@@ -121,7 +121,7 @@ env/
 
 ## PostgreSQL over Docker
 
-```shell
+```sh
 docker run --name db-postgres -p 5432:5432 -e POSTGRES_PASSWORD=<mysecretpassword> -d postgres
 
 # ... or more complete

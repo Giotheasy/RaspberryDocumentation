@@ -97,6 +97,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'akinsho/bufferline.nvim'
     Plug 'frazrepo/vim-rainbow'
     Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-dadbod'
+    Plug 'kristijanhusak/vim-dadbod-ui'
 
 call plug#end()
 

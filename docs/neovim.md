@@ -145,6 +145,21 @@ endif
 
 ```
 
+Alternative version for `~/.config/nvim/keymaps.vim`
+```vim
+  function! CheckBackSpace() abort
+    let col = col('.') -1
+    return !col || getline('.')[col - 1] =~# '\s'
+  endfunction
+  
+  inoremap <silent><expr> <Tab>
+  \ coc#pum#visible() ? coc#pum#comfirm() :
+  \ CheckBackSpace() ? "\<Tab>" :
+  \ coc#refrest()
+```
+
+
+
 Edit or create the `~/.config/nvim/basic.vim`
 
 ```vim

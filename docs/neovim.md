@@ -112,6 +112,7 @@ source $HOME/.config/nvim/themes/onedark.vim
 source $HOME/.config/nvim/keymaps.vim
 source $HOME/.config/nvim/basic.vim
 source $HOME/.config/nvim/themes/airline.vim
+source $HOME/.config/nvim/coc-prettier.vim
 ```
 
 Edit or create the `~/.config/nvim/keymaps.vim`

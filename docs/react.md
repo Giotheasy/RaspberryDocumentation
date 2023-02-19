@@ -15,3 +15,6 @@ mkdir <projectname>
 cd <projectname>
 npx create-react-app .
 ```
+
+
+Incomplete documentation

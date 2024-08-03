@@ -15,4 +15,5 @@ Big configuration compilation about tools used on Raspberry Pi:
 11. [Alacritty Config file](docs/alacritty.md)
 12. [React](docs/react.md)
 13. [Mumble](docs/mumble.md)
-14. [Transmission](docs/transmission.md)
+14. [Transmission DEPRECATED](docs/transmission.md)
+15. [Docker-compose Containers](docs/containers.md)

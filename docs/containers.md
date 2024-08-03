@@ -1,4 +1,4 @@
-# Varios contenedores para ser utilizados mediante docker-compose
+# Multiple containers to be used with docker-compose
 ## Transmission docker-compose Container
 
 ```yaml
@@ -19,7 +19,7 @@ services:
     restart: unless-stopped
 ```
 
-## Archivo .env
+## .env File
 ```.env
 PUID=1000
 PGID=1000
@@ -35,9 +35,9 @@ TRANSMISSION_DOWNLOADS=/path/to/downloads
 TRANSMISSION_WATCH=/path/to/watch/folder
 ```
 
-## Problema conocido
+## Known Issue
 
-Es posible que se genere el error:
+You might encounter the error:
 
 ```sh
 transmission    | tail: invalid PID: ‘’
@@ -45,4 +45,4 @@ transmission    | jq: parse error: Invalid numeric literal at line 29, column 27
 transmission    | [2024-08-03 20:30:20.720] ERR transmission-daemon Error loading config file -- exiting. (/home/buildozer/aports/community/transmission/src/transmission-4.0.6/daemon/daemon.cc:914)
 ```
 
-Es mi caso se debia a que en el json `settings.json` la key peerport tenia el texto `#optional` pese a haber eliminado este registro del archivo `.env`
+In my case, it was because the peerport key in the `settings.json` had the text `#optional` even though i had removed this entry from the `.env` file.
